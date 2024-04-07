@@ -29,6 +29,14 @@ public class MemberService {
         });
     }
 
+    public void deleteById(Long id){
+        memberRepository.deleteById(id);
+    }
+
+    public void updateById(Long id, String name){
+        memberRepository.findById(id).get().setName(name);
+    }
+
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }

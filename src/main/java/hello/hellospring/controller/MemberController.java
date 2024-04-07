@@ -7,6 +7,7 @@ import hello.hellospring.service.MemberService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -24,12 +25,36 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
+    @GetMapping("/members/delete")
+    public String deleteForm(){
+        return "members/deleteMemberForm";
+    }
+
+    @GetMapping("/members/update")
+    public String updateForm(){
+        return "members/updateMemberForm";
+    }
+
     @PostMapping("/members/new")
     public String create(MemberForm form){
         Member member = new Member();
         member.setName(form.getName());
 
         memberService.join(member);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("members/delete")
+    public String deleteById(MemberForm form){
+        memberService.deleteById(form.getId());
+
+        return "redirect:/";
+    }
+
+    @PostMapping("members/update")
+    public String updateById(MemberForm form){
+        memberService.updateById(form.getId(), form.getName());
 
         return "redirect:/";
     }

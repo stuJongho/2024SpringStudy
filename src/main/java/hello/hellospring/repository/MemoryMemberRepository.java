@@ -18,6 +18,11 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
+    public void deleteById(Long id) {
+        store.remove(id);
+    }
+
+    @Override
     public Optional<Member> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
